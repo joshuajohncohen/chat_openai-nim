@@ -39,11 +39,11 @@ proc main() =
             of "model", "m":
               if model == "default":
                 model = p.val.toLowerAscii()
-            of "apiKey", "key":
+            of "apikey", "key":
               openaiApiKey = p.val
-            of "apiEnv", "env":
+            of "apienv", "env":
               apiEnv = p.val
-            of "apiKeyFile", "keyFile":
+            of "apikeyfile", "keyfile":
               apiFile = p.val
             else:
               discard ""
