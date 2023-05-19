@@ -22,7 +22,7 @@ proc main() =
   var args: string = ""
   
   for i in 1..paramCount():
-    args &= paramStr(i)
+    args &= paramStr(i) & " "
   
   var p = initOptParser(args)
   var model: string = "default"
@@ -68,8 +68,9 @@ proc main() =
         openaiApiKey = readFile(apiFile)
       except:
         discard ""
-      styledEcho(styleBright, fgMagenta, "\nUnable to find API key. Fixes:\n  - Pass one with --apiKey\n  - Store one in an enviroment variable. Pass the name of the enviroment variable with --apiEnv. The default is OPENAI_API_KEY.\n  - Put the API key in a file and pass the file name with --apiKeyFile. The default is apiKey.txt.\n\nThese methods are checked in this order: --apiKey, then --apiEnv, then --apiFile. Whichever method succeeds first in this list will be used.")
-      quit()
+      if openaiApiKey == "":
+        styledEcho(styleBright, fgMagenta, "\nUnable to find API key. Fixes:\n  - Pass one with --apiKey\n  - Store one in an enviroment variable. Pass the name of the enviroment variable with --apiEnv. The default is OPENAI_API_KEY.\n  - Put the API key in a file and pass the file name with --apiKeyFile. The default is apiKey.txt.\n\nThese methods are checked in this order: --apiKey, then --apiEnv, then --apiFile. Whichever method succeeds first in this list will be used.")
+        quit()
 
   case model.toLowerAscii():
     of "default", "chatgpt":
@@ -80,7 +81,7 @@ proc main() =
       discard ""
 
   if not (model in ["gpt-3.5-turbo", "gpt-4"]):
-    styledEcho(styleBright, fgMagenta, "\nInvalid model: ", fgRed, model, "\nPlease enter one of: [default, gpt-3.5-turbo")
+    styledEcho(styleBright, fgMagenta, "\nInvalid model: ", fgRed, model, "\nPlease enter one of: [default (gpt-3.5-turbo), chatgpt | gpt-3.5-turbo, gpt4 | gpt-4]")
     quit()
   
   
