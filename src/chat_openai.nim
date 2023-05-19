@@ -22,7 +22,7 @@ proc main() =
   var args: string = ""
   
   for i in 1..paramCount():
-    args &= paramStr(i)
+    args &= paramStr(i) & " "
   
   var p = initOptParser(args)
   var model: string = "default"
