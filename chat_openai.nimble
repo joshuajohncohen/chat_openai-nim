@@ -5,6 +5,7 @@ author        = "@zameerlovesmath, @TTkindboy, @joshuajohncohen (GitHub)"
 description   = "A CLI for the Chat series of models provided by OpenAI"
 license       = "MIT"
 srcDir        = "src"
+binDir        = "bin"
 bin           = @["chat_openai"]
 
 
