@@ -155,14 +155,25 @@ proc main() =
           styledEcho(styleBright, fgMagenta, "\nProgram quit with ^C\n")
           quit()
         of '\x7f':
-          if userInput.len > 0 and userInput[^1] != '\n':
-            userInput = userInput[0 ..< ^1]
-            cursorBackward(1)
-            stdout.write(" ")
-            cursorBackward(1)
-          if userInput[^1] == '\n':
-            userInput = userInput[0 ..< ^1]
-            cursorUp(1)
+          if userInput.len > 0:
+            if userInput[^1] == '\n':
+              userInput = userInput[0 ..< ^1]
+              cursorUp(1)
+              setCursorXPos((userInput.len + 5) mod terminalWidth())
+              stdout.write(" ")
+              cursorBackward(1)
+            elif (userInput.len + 5) mod terminalWidth() == 0:
+              userInput = userInput[0 ..< ^1]
+              cursorUp(1)
+              setCursorXPos(terminalWidth() - 1)
+              stdout.write(" ")
+              cursorUp(1)
+              setCursorXPos(terminalWidth() - 1)
+            else:
+              userInput = userInput[0 ..< ^1]
+              cursorBackward(1)
+              stdout.write(" ")
+              cursorBackward(1)
         of '\r':
           if userInput[^1] == '\\':
             userInput &= "\n"
