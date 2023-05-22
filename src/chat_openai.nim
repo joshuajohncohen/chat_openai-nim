@@ -167,7 +167,7 @@ proc main() =
               cursorUp(1)
               setCursorXPos(terminalWidth() - 1)
               stdout.write(" ")
-              cursorUp(1)
+              #cursorUp(1)
               setCursorXPos(terminalWidth() - 1)
             else:
               userInput = userInput[0 ..< ^1]
